@@ -4,25 +4,42 @@ import React, { useState, useRef } from 'react';
 const NotesInput = () => {
   const [notes, setNotes] = useState(['']); // Start with one input box
   const inputRefs = useRef([]); // Create a ref to store references to the input boxes
+  const allowedNotes = new Set(['A','B','C','D','E','F','G', '']);
 
   // Handle the change in input fields
   const handleChange = (index, value) => {
-    const newNotes = [...notes];
-    newNotes[index] = value;
+    let newNotes = [...notes];
+    let capitalizedNote = value.charAt(0).toUpperCase();
+
+    // use if chaining to check all the conditions each time
+    if (!allowedNotes.has(capitalizedNote)) {
+      newNotes[index] = '';
+      return;
+    
+    }
+    
+    newNotes[index] = capitalizedNote + value.slice(1, 2);
     setNotes(newNotes);
+
   };
 
   // Handle the Enter key press
   const handleKeyDown = (index, event) => {
     if (event.key === 'Enter') {
       event.preventDefault(); // Prevent form submission
+
+      if (notes.length >= 7 || notes[notes.length - 1] === '') {
+        return;
+      }
+      
       setNotes(prevNotes => {
-        const newNotes = [...prevNotes, '']; // Add a new input box
-        // Focus on the new input box after the state has updated
+        var newNotes = [...prevNotes, '']; // Add a new input box
+        
         setTimeout(() => {
           inputRefs.current[newNotes.length - 1].focus(); // Focus the last input box
         }, 0);
-        return newNotes; // Return the updated notes array
+        return newNotes;
+
       });
     }
   };
@@ -31,7 +48,8 @@ const NotesInput = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('Submitted notes:', notes);
-    // Handle the notes submission logic (e.g., send to API)
+    // TODO handle the notes submission logic (e.g., send to API)
+    
   };
 
   return (
