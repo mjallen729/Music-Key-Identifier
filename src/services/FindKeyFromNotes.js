@@ -64,7 +64,7 @@ export default class FindKeyFromNotes {
 
   }
 
-  test(notes) {
+  run(notes) {
     rankedKeys = rankKeysByAdjacency(notes);
 
     console.log("Ranked keys by closest adjacency (circle of fifths):", rankedKeys);
