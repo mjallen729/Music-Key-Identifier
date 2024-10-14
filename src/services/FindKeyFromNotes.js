@@ -1,7 +1,7 @@
-import fs from 'fs'
+import { data } from '../data/keySigs'
 
 // Key signature data from the JSON file
-const keySigs = JSON.parse(fs.readFileSync('./data/keySigs.json', 'utf8'));
+const keySigs = JSON.parse(data);
 
 // Circle of Fifths (Major and Minor)
 const circleOfFifths = [
@@ -52,7 +52,7 @@ export default class FindKeyFromNotes {
 
       if (allNotesExist) {
         // Calculate the distance from the tonic (circle of fifths)
-        const distance = calculateDistance(tonic, key);
+        const distance = this.calculateDistance(tonic, key);
         keyMatches.push({ key, distance });
 
       }
@@ -65,9 +65,9 @@ export default class FindKeyFromNotes {
   }
 
   run(notes) {
-    rankedKeys = rankKeysByAdjacency(notes);
+    let rankedKeys = this.rankKeysByAdjacency(notes);
+    return rankedKeys;
 
-    console.log("Ranked keys by closest adjacency (circle of fifths):", rankedKeys);
   }
   
   // notes = ['C', 'A', 'E', 'F', 'G', 'B', 'D'];
