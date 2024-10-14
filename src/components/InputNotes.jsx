@@ -45,6 +45,21 @@ const NotesInput = (props) => {
 
       });
     }
+
+    if (event.key === 'Backspace' && notes.length != 1 && notes[notes.length - 1] == '') {
+      setNotes(prevNotes => {
+        let newNotes = [...prevNotes.slice(0, prevNotes.length - 1)]; // Add a new input box
+
+        setTimeout(() => {
+          inputRefs.current[newNotes.length - 1].focus(); // Focus the last input box
+        }, 0);
+
+        return newNotes;
+
+      });
+      
+    }
+
   };
 
   // Handle form submission
