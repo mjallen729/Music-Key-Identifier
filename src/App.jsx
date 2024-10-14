@@ -11,7 +11,7 @@ function App() {
       <div style={{ padding: '20px' }}>
         <h1>Musical Notes Input</h1>
         <NotesInput onSubmit={setFound}/>
-        <FoundNotes/>
+        <FoundNotes noteList={found}/>
       </div>
     </div>
   )
