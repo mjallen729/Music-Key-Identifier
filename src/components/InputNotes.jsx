@@ -22,6 +22,15 @@ const NotesInput = (props) => {
     }
     
     newNotes[index] = capitalizedNote + value.slice(1, 2);
+
+    if (newNotes[index].length == 2) {
+      if (newNotes[index][1] != '#' && newNotes[index][1] != 'b') {
+        newNotes[index] = capitalizedNote;
+
+      }
+
+    }
+
     setNotes(newNotes);
 
   };
@@ -65,11 +74,11 @@ const NotesInput = (props) => {
   // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
-    let tmp = [];
+    let tmp = new Set([]);
 
     for (let i = 0; i < notes.length; ++i) {
       if (notes[i] != '') {
-        tmp.push(notes[i]);
+        tmp.add(notes[i]);
 
       }
 
