@@ -1,7 +1,10 @@
 // src/NotesInput.js
 import React, { useState, useRef } from 'react';
+import FindNotes from '../services/FindKeyFromNotes';
 
-const NotesInput = () => {
+const noteFinder = new FindNotes();
+
+const NotesInput = (props) => {
   const [notes, setNotes] = useState(['']); // Start with one input box
   const inputRefs = useRef([]); // Create a ref to store references to the input boxes
   const allowedNotes = new Set(['A','B','C','D','E','F','G', '']);
@@ -47,8 +50,21 @@ const NotesInput = () => {
   // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Submitted notes:', notes);
-    // TODO handle the notes submission logic (e.g., send to API)
+    let tmp = [];
+
+    for (let i = 0; i < notes.length; ++i) {
+      if (notes[i] != '') {
+        tmp.push(notes[i]);
+
+      }
+
+    }
+
+    console.log('Submitted notes:', tmp);
+    let found = noteFinder.run(tmp);
+    console.log('Result', found)
+
+    props.onSubmit(found);
     
   };
 
