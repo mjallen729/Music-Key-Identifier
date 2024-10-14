@@ -85,7 +85,6 @@ const NotesInput = (props) => {
 
     console.log('Submitted notes:', tmp);
     let found = noteFinder.run(tmp);
-    console.log('Result', found)
 
     props.onSubmit(found);
     
