@@ -1,4 +1,3 @@
-// src/NotesInput.js
 import React, { useState, useRef } from 'react';
 import FindNotes from '../services/FindKeyFromNotes';
 
